@@ -1,0 +1,28 @@
+function DrawWeightMap(im,rect,pos,currentScaleFactor,sz,weight)
+im    = insertShape(im, 'Rectangle', rect, 'LineWidth', 4, 'Color', 'red');
+patch = get_pixels(im,pos,round(sz*currentScaleFactor),sz/4);
+% scale = currentScaleFactor*4;
+% rect  = floor([25-rect(3)/(2*scale),25-rect(4)/(2*scale),rect(3)/scale,rect(4)/scale]);
+% i=floor(rect(1));j=floor(rect(2));
+% m=i+rect(3);n=j+rect(4);
+% patch(j,i:m,1)=255;
+% patch(j,i:m,2)=0;
+% patch(j,i:m,3)=0;
+% patch(j:n,i,1)=255;
+% patch(j:n,i,2)=0;
+% patch(j:n,i,3)=0;
+% patch(n,i:m,1)=255;
+% patch(n,i:m,2)=0;
+% patch(n,i:m,3)=0;
+% patch(j:n,m,1)=255;
+% patch(j:n,m,2)=0;
+% patch(j:n,m,3)=0;
+res   = double(weight);
+figure(1),surf(res);
+caxis([min(min(res)),max(max(res)),]);
+hold on;
+[row, col,~]=size(patch);
+[X,Y]=meshgrid(1:row,1:col);
+Z    =-ones(row,col)*0.002;
+b    = surf(X,Y,Z,double(patch)/255);
+set(b,'linestyle','none');
